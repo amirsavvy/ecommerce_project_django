@@ -18,7 +18,7 @@
       <div class="row">
         <div class="col-md-8">
 
-          <h1>Welcome: {{title}}</h1>
+          <h1 class="text-primary">Ecommerce</h1>
           <hr>
 
         </div>
@@ -28,10 +28,18 @@
       <div class="row">
         <div class="col-md-8">
 
-          <h1>Premium</h1>
-          <h3>{{ premium_content }}</h3>
-          <a class="btn btn-primary" href="{% url 'products:product_list' %}">Products List</a><br>
-          <a class="btn btn-warning" href="{% url 'products:product_featured' %}">Products Featured List</a>
+          <h2 class="text-primary">Product Detail</h1>
+
+          <p class="text-primary">{{instance.title}}</p>
+          <p class="text-primary">{{instance.description}}</p>
+          {% if instance.image %}
+          <p><img src="{{instance.image.url}}" class="image-fluid"/></p>
+          {% endif %}
+
+
+
+
+          <a class="btn btn-primary" href="#">Home Page</a>
 
         </div>
       </div>

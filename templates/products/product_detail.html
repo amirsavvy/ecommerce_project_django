@@ -30,9 +30,11 @@
 
           <h2 class="text-primary">Product Detail</h1>
 
-          <p class="text-primary">{{object.title}}</p>
-          <p class="text-primary">{{object.description}}</p>
-          <p><img src="{{object.image.url}}" class="image-fluid"/></p>
+          <p class="text-primary">{{product_detail.title}}</p>
+          <p class="text-primary">{{product_detail.description}}</p>
+          {% if product_detail.image %}
+          <p><img src="{{product_detail.image.url}}" class="image-fluid"/></p>
+          {% endif %}
 
 
 
