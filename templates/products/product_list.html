@@ -31,7 +31,7 @@
           <h2 class="text-primary">Products</h1>
           {% for product in products %}
           <p class="text-primary">
-            <a href="" title="{{product.title}}">
+            <a href="{{product.get_absolute_url}}" title="{{product.title}}">
             {{product.title}}
             </a>
           </p>

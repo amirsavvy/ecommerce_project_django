@@ -60,13 +60,13 @@ class ProductDetailSlugView(DetailView):
         slug = self.kwargs.get('slug')
         # instance = get_object_or_404(Product, slug=slug, active=True)
         try:
-            instance = Product.objects.filter(slug=slug)
+            instance = Product.objects.get(slug=slug)
             print(instance)
 
         except Product.DoesNotExist:
             raise Http404("No Product found!")
         except Product.MultipleObjectsReturned:
-            qs = Product.objects.filter(slug=slug)
+            qs = Product.objects.get(slug=slug)
             instance = qs.first()
         except:
             raise Http404("Hmm sai")

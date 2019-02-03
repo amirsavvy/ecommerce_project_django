@@ -1,6 +1,10 @@
 import random
 import os
 from django.db import models
+# For slug
+from django.db.models.signals import pre_save, post_save
+
+from products.utils import unique_slug_generator
 
 # get file extension
 def get_filename_ext(file_path):
@@ -56,10 +60,23 @@ class Product(models.Model):
     image = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
     featured = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
-    slug = models.SlugField(default='amir', unique=True)
+    slug = models.SlugField(default='amir', unique=True, blank=True)
+
 
 
     objects = ProductManager()
 
+    def get_absolute_url(self):
+        return "/products/{slug}/".format(slug=self.slug)
+
+
     def __str__(self):
         return self.title
+
+
+
+def product_pre_save_receiver(sender, instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug = unique_slug_generator(instance)
+
+pre_save.connect(product_pre_save_receiver, sender=Product)
