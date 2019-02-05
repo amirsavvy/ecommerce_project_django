@@ -6,6 +6,8 @@ from django.db.models.signals import pre_save, post_save
 
 from products.utils import unique_slug_generator
 
+from django.urls import reverse
+
 # get file extension
 def get_filename_ext(file_path):
     base_name = os.path.basename(file_path)
@@ -61,6 +63,7 @@ class Product(models.Model):
     featured = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
     slug = models.SlugField(default='amir', unique=True, blank=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
 
 
 
@@ -69,6 +72,8 @@ class Product(models.Model):
     def get_absolute_url(self):
         return "/products/{slug}/".format(slug=self.slug)
 
+    # def get_absolute_url(self):
+    #     return reverse("detail", kwargs={"slug": self.slug})
 
     def __str__(self):
         return self.title

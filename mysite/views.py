@@ -17,7 +17,10 @@ def about_page(request):
 
 def contact_page(request):
     contact_form = ContactForm(request.POST, None)
-    context = {'title': "Contact Page", 'form': contact_form}
+    context = {
+    'title': "Contact Page",
+    'form': contact_form,
+    'brand': 'My Brand Name'}
 
     if contact_form.is_valid():
         print(contact_form.cleaned_data)
@@ -66,5 +69,5 @@ def register_page(request):
         password = form.cleaned_data.get('password')
         new_user = User.objects.create_user(username, email, password)
         print(new_user)
-        
+
     return render(request, 'auth/register_page.html', context)

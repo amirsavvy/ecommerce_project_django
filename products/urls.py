@@ -17,7 +17,7 @@ urlpatterns = [
     # url(r'featured/', ProductFeaturedListView.as_view(), name='product_featured'),
     # url(r'featured-detail/(?P<pk>\d+)/$', ProductFeaturedDetailView.as_view()),
     # url(r'detail-cbv/(?P<pk>\d+)/$', ProductDetailView.as_view()),
-    url(r'^(?P<slug>[\w-]+)/$', ProductDetailSlugView.as_view()),
+    url(r'^(?P<slug>[\w-]+)/$', ProductDetailSlugView.as_view(), name='detail'),
     # url(r'detail-fbv/(?P<pk>\d+)/$', product_detail_view)
 
 
