@@ -21,7 +21,7 @@ from django.contrib import admin
 from django.urls import path, include
 from mysite.views import home_page, register_page,about_page, contact_page, login_page
 from django.conf.urls import url
-
+from cart.views import cart_home
 
 
 urlpatterns = [
@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^home/$', home_page, name="home_page"),
     url(r'^about/$', about_page, name="about_page"),
     url(r'^contact/$', contact_page, name="contact_page"),
+    url(r'^cart/$', cart_home, name='cart'),
     url(r'^login/$', login_page, name='login_page'),
     url(r'^register/$', register_page, name='register_page'),
     url(r'^products/', include('products.urls', namespace='products')),
