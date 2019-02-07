@@ -24,7 +24,8 @@ class SearchProductView(ListView):
         print(query)
 
         if query is not None:
-            return Product.objects.filter(title__icontains=query)
+            return Product.objects.search(query)
+            
         return Product.objects.featured()
         '''
         icontains = field is contains this

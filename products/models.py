@@ -1,3 +1,4 @@
+from django.db.models import Q
 import random
 import os
 from django.db import models
@@ -31,29 +32,32 @@ class ProductQuerySet(models.query.QuerySet):
     def active(self):
         return self.filter(active = True)
 
+    def search(self, query):
+        lookups = (Q(title__icontains=query)
+                | Q(description__icontains=query)
+                | Q(price__icontains=query)
+                | Q(tag__title__icontains = query))
+        # Q(tag__name__icontains = query)
+        # tshirt, t-shirt, t tshirt, red, green, blue
+        return self.filter(lookups).distinct()
 
 # Custom Model Manager
 class ProductManager(models.Manager):
-
     # Override builtin methods
-
     def get_queryset(self):
         return ProductQuerySet(self.model, using = self._db)
-
     # def all(self):
     #     self.get_queryset().active()
-
     def featured(self):
         return self.get_queryset().filter(featured = True)
-
     def get_by_id(self, id):
         # Product.objects == self.get_queryset()
         qs = self.get_queryset().filter(id=id)
         if qs.count() == 1:
             return qs.first()
         return None
-
-
+    def search(self, query):
+        return self.get_queryset().active().search(query)
 
 class Product(models.Model):
     title = models.CharField(max_length=120)
@@ -64,20 +68,13 @@ class Product(models.Model):
     active = models.BooleanField(default=True)
     slug = models.SlugField(default='amir', unique=True, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
-
-
-
     objects = ProductManager()
-
     def get_absolute_url(self):
         return "/products/{slug}/".format(slug=self.slug)
-
     # def get_absolute_url(self):
     #     return reverse("detail", kwargs={"slug": self.slug})
-
     def __str__(self):
         return self.title
-
 
 
 def product_pre_save_receiver(sender, instance, *args, **kwargs):
