@@ -5,6 +5,10 @@ from mysite.forms import ContactForm, LoginForm, RegisterForm
 
 # Create your views here.
 def home_page(request):
+    # f_name = request.session.get('f_name', 'Unknown') # Session Getter
+    # f_name = request.session['f_name'] # give error if null
+    # print(f_name)
+
     context = {'title': "Home Page"}
     if request.user.is_authenticated:
         context['premium_content'] = "Mian Amir Savvy"
