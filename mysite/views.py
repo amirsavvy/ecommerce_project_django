@@ -3,11 +3,11 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from mysite.forms import ContactForm, LoginForm, RegisterForm
 
-# Create your views here.
+
 def home_page(request):
-    # f_name = request.session.get('f_name', 'Unknown') # Session Getter
+    # name = request.session.get('name', 'Unknown')  # Session Getter
     # f_name = request.session['f_name'] # give error if null
-    # print(f_name)
+    # print(name)
 
     context = {'title': "Home Page"}
     if request.user.is_authenticated:
@@ -15,9 +15,11 @@ def home_page(request):
 
     return render(request, "home_page.html", context)
 
+
 def about_page(request):
     context = {'title': "About Page"}
     return render(request, "home_page.html", context)
+
 
 def contact_page(request):
     contact_form = ContactForm(request.POST, None)
@@ -61,7 +63,9 @@ def login_page(request):
 
     return render(request, 'auth/login_page.html', context)
 
+
 User = get_user_model()
+
 
 def register_page(request):
     form = RegisterForm(request.POST or None)
