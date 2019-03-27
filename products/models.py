@@ -4,10 +4,10 @@ import os
 from django.db import models
 # For slug
 from django.db.models.signals import pre_save, post_save
-
 from products.utils import unique_slug_generator
-
 from django.urls import reverse
+
+
 
 # get file extension
 def get_filename_ext(file_path):
@@ -68,7 +68,10 @@ class Product(models.Model):
     active = models.BooleanField(default=True)
     slug = models.SlugField(default='amir', unique=True, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
+
     objects = ProductManager()
+
+
     def get_absolute_url(self):
         return "/products/{slug}/".format(slug=self.slug)
     # def get_absolute_url(self):

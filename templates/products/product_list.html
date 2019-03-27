@@ -17,7 +17,13 @@
         <div class="card-body">
           <h5 class="card-title">{{product.title}}</h5>
           <p class="card-text">{{product.description | linebreaks |truncatewords:15}}</p>
-          <a href="{{product.get_absolute_url}}" class="btn btn-primary">View Product Details</a>
+          <a href="{{product.get_absolute_url}}" class="btn btn-primary">Details</a>
+          <!-- {{cart}}
+          {% if product in cart.products.all %}
+          In Cart <button class="btn btn-link">Remove?</button>
+          {% else %}
+          <button class="btn btn-success">Add to cart</button>
+          {% endif %} -->
 
         </div>
 
